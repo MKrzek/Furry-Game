@@ -543,6 +543,8 @@ module.exports = __webpack_require__(2);
 /***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function(){
+
+
 class Furry{
     constructor(){
         this.x=0;
@@ -559,7 +561,7 @@ class Coin{
 class Game{
     constructor(){
         this.board=document.querySelectorAll('section#board div');
-        console.log ('board:', this.board);
+       
         this.furry=new Furry();
         this.coin= new Coin ();
         this.score=0;
@@ -569,33 +571,25 @@ class Game{
     }
 
     showFurry(){
-       if (this.furry.x>0){
-           this.hideVisibleFurry();
+        this.hideVisibleFurry();
         this.board[this.index(this.furry.x, this.furry.y)].classList.add('furry');
-        console.log (this.board)
-       }else{
-    this.board[this.index(this.furry.x, this.furry.y)].classList.add('furry');
-       } 
-        
-       
-         
-        
-    }
+    } 
+
     showCoin(){
-        this.board[this.index(this.coin.x, this.coin.y)].classList.add('coin');
-        console.log(this.board)
+        this.board[this.index(this.coin.x, this.coin.y)].classList.add('coin');    
     }
+
     startGame(){
         const self=this;
         this.idSetInterval=setInterval(function(){
            
            self.moveFurry()
-        }, 1000)
+        }, 2000)
     }
     moveFurry(){
         if (this.furry.direction==='right'){
-            this.furry.x=this.furry.x+1;
-            console.log ('x', this.furry.x)
+            this.furry.x++
+            
         }else if (this.furry.direction==='left'){
             this.furry.x=this.furry.x-1;
         }else if (this.furry.direction==='up'){
@@ -606,14 +600,45 @@ class Game{
         this.showFurry()
     }
     hideVisibleFurry(){
-        const visFurry=document.querySelector('.furry');
-        visFurry.classList.remove('furry')
+        let visFurry=document.querySelector('.furry');
+        console.log ('vizible', visFurry)
+        if (visFurry!=null){
+            visFurry.classList.remove('furry')
+        }
 
     }
+    turnFurry(event){
+        console.log(event.which)
+        switch(event.which){
+            
+            case 37:
+                this.furry.direction='left';
+                
+                break;
+            case 38: 
+                this.furry.direction='up';
+                
+                break;
+            case 39:
+                this.furry.direction='right';
+               
+                break;
+            case 40:
+                this.furry.direction='down';
+                
+                break;
 
+        }
+    }
 
 }
+
 const game= new Game()
+document.addEventListener('keydown', function (event) {
+        game.turnFurry(event)
+    })
+
+
 game.showFurry()
 game.showCoin()
 game.startGame()
