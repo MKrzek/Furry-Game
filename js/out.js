@@ -569,8 +569,16 @@ class Game{
     }
 
     showFurry(){
+       if (this.furry.x>0){
+           this.hideVisibleFurry();
         this.board[this.index(this.furry.x, this.furry.y)].classList.add('furry');
         console.log (this.board)
+       }else{
+    this.board[this.index(this.furry.x, this.furry.y)].classList.add('furry');
+       } 
+        
+       
+         
         
     }
     showCoin(){
@@ -578,16 +586,37 @@ class Game{
         console.log(this.board)
     }
     startGame(){
+        const self=this;
         this.idSetInterval=setInterval(function(){
-            console.log('hurra');
-        }, 250)
+           
+           self.moveFurry()
+        }, 1000)
+    }
+    moveFurry(){
+        if (this.furry.direction==='right'){
+            this.furry.x=this.furry.x+1;
+            console.log ('x', this.furry.x)
+        }else if (this.furry.direction==='left'){
+            this.furry.x=this.furry.x-1;
+        }else if (this.furry.direction==='up'){
+            this.furry.y=this.furry.y-1;
+        }else{
+            this.furry.y=this.furry.y+1;
+        }
+        this.showFurry()
+    }
+    hideVisibleFurry(){
+        const visFurry=document.querySelector('.furry');
+        visFurry.classList.remove('furry')
+
     }
 
-}
 
+}
 const game= new Game()
 game.showFurry()
 game.showCoin()
+game.startGame()
 
 
 })
