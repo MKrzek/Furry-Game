@@ -580,12 +580,15 @@ class Game{
     }
 
     startGame(){
+        this.showCoin()
+        this.showFurry()
         const self=this;
         this.idSetInterval=setInterval(function(){
            
            self.moveFurry()
-        }, 2000)
+        }, 250)
     }
+
     moveFurry(){
         if (this.furry.direction==='right'){
             this.furry.x++
@@ -597,7 +600,12 @@ class Game{
         }else{
             this.furry.y=this.furry.y+1;
         }
-        this.showFurry()
+if ((this.furry.x < 0 || this.furry.x > 9) || (this.furry.y < 0 || this.furry.y > 9)) {
+          this.gameOver();
+ }else{
+        this.showFurry();
+        this.checkCollision();
+ }   
     }
     hideVisibleFurry(){
         let visFurry=document.querySelector('.furry');
@@ -630,6 +638,20 @@ class Game{
 
         }
     }
+    checkCollision(){
+        if (this.furry.x===this.coin.x && this.furry.y===this.coin.y){
+            this.board[this.index(this.coin.x, this.coin.y)].classList.remove('coin');
+            this.score++;
+            document.querySelector('#score div strong').innerText=this.score;
+            this.coin = new Coin();
+            this.showCoin()
+             
+        }
+    }
+    gameOver(){
+            clearInterval(this.idSetInterval)
+            this.hideVisibleFurry()
+    }
 
 }
 
@@ -639,8 +661,8 @@ document.addEventListener('keydown', function (event) {
     })
 
 
-game.showFurry()
-game.showCoin()
+//game.showFurry()
+//game.showCoin()
 game.startGame()
 
 
