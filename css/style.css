@@ -22,6 +22,8 @@ section#score {
   float: left;
   width: 64px;
   height: 64px;
+  background-color:#f8f9fa;
+  box-shadow: 1px 1px 5px 1px #20c997;
 }
 
 
@@ -35,18 +37,20 @@ section#score div {
   border-radius: 1px;
   box-shadow: 1px 1px 5px 1px #20c997;
   margin: 1em auto;
+  color: #f8f9fa;
 }
+
 
 
 
 
 .furry {
-  background-image: url('../images/furry.png');
+  background-image: url('../images/clown.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
 .coin {
-  background-image: url('../images/coin.png');
+  background-image: url('../images/diamond.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
